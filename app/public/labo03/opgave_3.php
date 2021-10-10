@@ -1,3 +1,16 @@
+
+<?php
+$pwd = getcwd();
+$fileArr = [];
+$i = 0;
+foreach (new DirectoryIterator('.') as $file) {
+    if($file->isDot()) continue;
+    $fileArr[$i] = $file -> getFilename();
+    print $file->getFilename() . '<br>';
+    $i++;
+}
+?>
+
 <!doctype html>
 <html>
 <head>
@@ -33,8 +46,28 @@
 </head>
 <body>
 
-	<h1>Browsing <code>files/images</code></h1>
 
+	<h1>Browsing <code><?php echo $pwd;?></code></h1>
+
+    <ul>
+        <?php
+        foreach ($fileArr as $item){
+        ?>
+        <li>
+            <a href="<?php echo $item ?>"><img src="icons/up.gif" /><?php echo $item ?></a>
+            <?php
+            if(!is_dir($item)) {
+                echo '<em>('.filesize($item).'bytes)</em>';
+                }
+            ?>
+
+        </li>
+        <?php
+        }
+        ?>
+    </ul>
+
+    <!--
 	<ul>
 		<li><a href="opgave_3.php?path=files"><img src="icons/up.gif" />..</a></li>
 		<li><a href="opgave_3.php?path=files%2Fimages%2Ficons"><img src="icons/folder.gif" />icons</a></li>
@@ -43,6 +76,7 @@
 		<li><a href="files/images/test2.jpg"><img src="icons/jpg.gif" />test2.jpg</a> <em>(4kB)</em></li>
 		<li><a href="files/images/test.zip"><img src="icons/zip.gif" />test.zip</a> <em>(20kB)</em></li>
 	</ul>
+	-->
 
 </body>
 </html>
