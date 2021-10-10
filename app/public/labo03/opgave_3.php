@@ -2,12 +2,15 @@
 <?php
 $pwd = getcwd();
 $fileArr = [];
-$i = 0;
 foreach (new DirectoryIterator('.') as $file) {
     if($file->isDot()) continue;
-    $fileArr[$i] = $file -> getFilename();
-    print $file->getFilename() . '<br>';
-    $i++;
+    if (is_dir($file)){
+        $fileArr[$file ->getFilename()] = 'folder';
+    }
+    else{
+        $fileArr[$file ->getFilename()] = $file -> getExtension();
+    }
+    //print $file->getFilename() . '<br>';
 }
 ?>
 
@@ -51,13 +54,22 @@ foreach (new DirectoryIterator('.') as $file) {
 
     <ul>
         <?php
-        foreach ($fileArr as $item){
+        foreach ($fileArr as $key => $value){
         ?>
         <li>
-            <a href="<?php echo $item ?>"><img src="icons/up.gif" /><?php echo $item ?></a>
+            <a href="<?php echo $key ?>" >
+                <img src="
+                <?php
+
+                echo './icons/'.$value.'.gif';
+
+                ?>
+                " />
+                <?php echo $key?>
+            </a>
             <?php
-            if(!is_dir($item)) {
-                echo '<em>('.filesize($item).'bytes)</em>';
+            if(!is_dir($key)) {
+                echo '<em>('.filesize($key).'bytes)</em>';
                 }
             ?>
 
