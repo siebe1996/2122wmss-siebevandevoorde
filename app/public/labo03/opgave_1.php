@@ -17,6 +17,7 @@
 
     $dir = new DirectoryIterator(($basePath));
     foreach ($dir as $file){
+        $linesArr = [];
         //$spl = new SplFileInfo($file);
         if (!$file -> isDot() && !$file -> isDir() && $file -> getExtension() == 'jpg'){
             //$images[$file -> getFilename()] = $file -> getExtension();
@@ -25,20 +26,25 @@
         else if(!$file -> isDot() && !$file -> isDir()){
             $caption = $file -> getFilename();
             $lines = new SplFileObject($basePath.'/'.$caption);
-            $linesArr = [];
             $i = 0;
             while (!$lines -> eof()){
                 $linesArr[$i] = $lines -> fgets();
                     $i++;
             }
         }
-        $imageArr = [];
+        /*$imageArr = [];
         $j = 0;
         foreach ($images as $image){
             $imageArr[$image] = $linesArr[$j];
             $j++;
-        }
+        }*/
     }
+$imageArr = [];
+$j = 0;
+foreach ($images as $image){
+    $imageArr[$image] = $linesArr[$j];
+    $j++;
+}
 		// @TODO loop directory
 
 
