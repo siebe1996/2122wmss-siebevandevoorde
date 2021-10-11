@@ -5,8 +5,12 @@ $fileArr = [];
 $path ='/';
 
 if (isset($_GET['path'])){
+    $pathbool = true;
     $path .= (string)$_GET['path'];
     print_r($path);
+}
+else {
+    $pathbool = false;
 }
 
 foreach (new DirectoryIterator('.'.$path) as $file) {
@@ -65,10 +69,19 @@ print_r(__DIR__);
 <body>
 
 
-	<h1>Browsing <code><?php echo $pwd.'/'.$path;?></code></h1>
+	<h1>Browsing <code><?php echo $pwd.$path;?></code></h1>
 
     <ul>
         <?php
+        if ($pathbool === true){
+            ?>
+            <li>
+                <a href="<?php echo basename($_SERVER['PHP_SELF'])?>">
+                    <img src="icons/up.gif">
+                </a>
+            </li>
+            <?php
+        }
         foreach ($fileArr as $key => $value){
         ?>
         <li>
