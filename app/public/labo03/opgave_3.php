@@ -2,7 +2,14 @@
 <?php
 $pwd = getcwd();
 $fileArr = [];
-foreach (new DirectoryIterator('.') as $file) {
+$path ='/';
+
+if (isset($_GET['path'])){
+    $path .= (string)$_GET['path'];
+    print_r($path);
+}
+
+foreach (new DirectoryIterator('.'.$path) as $file) {
     if($file->isDot()) continue;
     if (is_dir($file)){
         $fileArr[$file ->getFilename()] = 'folder';
@@ -12,6 +19,14 @@ foreach (new DirectoryIterator('.') as $file) {
     }
     //print $file->getFilename() . '<br>';
 }
+/*if (isset($_GET['path'])){
+    $pwd = (string)$_GET['path'];
+    print_r("test");
+}*/
+$place = $_GET;
+print_r($place);
+print_r($pwd);
+print_r(__DIR__);
 ?>
 
 <!doctype html>
@@ -50,14 +65,14 @@ foreach (new DirectoryIterator('.') as $file) {
 <body>
 
 
-	<h1>Browsing <code><?php echo $pwd;?></code></h1>
+	<h1>Browsing <code><?php echo $pwd.'/'.$path;?></code></h1>
 
     <ul>
         <?php
         foreach ($fileArr as $key => $value){
         ?>
         <li>
-            <a href="<?php echo $key ?>" >
+            <a href="<?php echo basename($_SERVER['PHP_SELF']).'?path='.$key ?>" >
                 <img src="
                 <?php
 
@@ -69,7 +84,7 @@ foreach (new DirectoryIterator('.') as $file) {
             </a>
             <?php
             if(!is_dir($key)) {
-                echo '<em>('.filesize($key).'bytes)</em>';
+                echo '<em>('.filesize(__DIR__.$path.'/'.$key).'bytes)</em>';
                 }
             ?>
 
