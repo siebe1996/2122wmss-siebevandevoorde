@@ -23,14 +23,18 @@ foreach (new DirectoryIterator('.'.$path) as $file) {
     }
     //print $file->getFilename() . '<br>';
 }
+
+function addMap(){
+
+}
 /*if (isset($_GET['path'])){
     $pwd = (string)$_GET['path'];
     print_r("test");
 }*/
-$place = $_GET;
+/*$place = $_GET;
 print_r($place);
 print_r($pwd);
-print_r(__DIR__);
+print_r(__DIR__);*/
 ?>
 
 <!doctype html>
@@ -70,6 +74,7 @@ print_r(__DIR__);
 
 
 	<h1>Browsing <code><?php echo $pwd.$path;?></code></h1>
+    <button type="button" onclick="<?php addMap();?>">Add map</button>
 
     <ul>
         <?php
