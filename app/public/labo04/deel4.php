@@ -16,22 +16,34 @@ $message1 = '*';
 $message2 = '*';
 $message3 = '*';
 $message4 = '*';
+$message5 = '*';
+
+$action = $_SERVER["PHP_SELF"];
 
 if ($moduleAction === 'processName'){
+    $isValid = true;
     if(trim($name) === ''){
         $message1 = 'Gelieve een naam in te vullen';
+        $isValid = false;
     }
     if(trim($email) === ''){
         $message2 = 'Gelieve een email in te vullen';
+        $isValid = false;
     }
     if(trim($bedrijf) === ''){
         $message3 = 'Gelieve een bedrijf in te vullen';
+        $isValid = false;
     }
     if($land === 0){
         $message4 = 'Gelieve een land in te vullen';
+        $isValid = false;
     }
     if ($voorkeur === ''){
         $message5 = 'Gelieve een voorkeur in te vullen';
+        $isValid = false;
+    }
+    if ($isValid){
+        $action = 'deel5.php';
     }
 }
 print_r(basename(__DIR__));
@@ -45,7 +57,7 @@ print_r(basename($_SERVER['PHP_SELF']));
 </head>
 <body>
 
-<form action="deel5.php" method="post">
+<form action='<?php echo $action; ?>' method="post">
 
     <fieldset>
 
