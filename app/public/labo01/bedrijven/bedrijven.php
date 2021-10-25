@@ -195,4 +195,38 @@ if (array_key_exists('sort', $_GET) && ($_GET['sort'] === 'zip')){
 
 
 </body>
+<div id="debug">
+
+    <?php
+
+    /**
+     * Helper Functions
+     * ========================
+     */
+
+    /**
+     * Dumps a variable
+     * @param mixed $var
+     * @return void
+     */
+    function dump($var) {
+        echo '<pre>';
+        var_dump($var);
+        echo '</pre>';
+    }
+
+
+    /**
+     * Main Program Code
+     * ========================
+     */
+
+    // dump $_GET
+    dump($companies);
+
+    //dump($pureData);
+
+    ?>
+
+</div>
 </html>
